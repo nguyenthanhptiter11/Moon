@@ -15,3 +15,5 @@ npm i -D @types/body-parser @types/cors @types/express @types/mongoose @types/no
   865   sudo usermod -aG docker thanhnv
   
 sudo dnf install docker-compose
+
+docker-compose up
