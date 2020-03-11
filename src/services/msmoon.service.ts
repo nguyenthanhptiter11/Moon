@@ -35,7 +35,7 @@ export class DocktypeService {
             if (error) {
                 res.send(error);
             }
-            const message = msmoon || {message: 'MSMoon not found :('};
+            const message = msmoon || { message: 'MSMoon not found :(' };
             res.json(message);
         });
     }
