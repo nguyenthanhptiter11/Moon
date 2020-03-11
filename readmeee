@@ -1,0 +1,17 @@
+npm i body-parser cors express mongoose
+
+npm i -D @types/body-parser @types/cors @types/express @types/mongoose @types/node nodemon ts-node typescript
+
+
+
+
+
+ 859   sudo dnf remove docker                   docker-client                   docker-client-latest                   docker-common                   docker-latest                   docker-latest-logrotate                   docker-logrotate                   docker-selinux                   docker-engine-selinux                   docker-engine
+  860  sudo dnf -y install dnf-plugins-core
+  861   sudo dnf config-manager     --add-repo     https://download.docker.com/linux/fedora/docker-ce.repo
+  862  sudo dnf config-manager --set-enabled docker-ce-nightly
+  863  sudo dnf install docker-ce docker-ce-cli containerd.io
+  864  sudo systemctl start docker
+  865   sudo usermod -aG docker thanhnv
+  
+sudo dnf install docker-compose
