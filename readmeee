@@ -16,4 +16,9 @@ npm i -D @types/body-parser @types/cors @types/express @types/mongoose @types/no
   
 sudo dnf install docker-compose
 
+
+sudo systemctl start docker
+sudo groupadd docker
+newgrp docker
+sudo usermod -aG docker thanhnv
 docker-compose up
