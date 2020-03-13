@@ -2,20 +2,19 @@
 
 import { Request, Response } from 'express';
 import { MongooseDocument } from 'mongoose';
-import { MSMoon } from '../../models/msmoon.model';
-import { WELCOME_MESSAGE } from '../../../../constants/docktypeApi.constants';
-import { DocktypeServiceLocal } from "../local/msmoon.service.local";
+import { MSMoon, IMSMoonOutput } from '../../models/msmoon.model';
+import { MSMoonServiceLocal } from "../local/msmoon.service.local";
 
-export class DocktypeServiceAction {
+export class MSMoonServiceAction {
 
-    private docktypeServiceLocal: DocktypeServiceLocal;
+    private msMoonServiceLocal: MSMoonServiceLocal;
     constructor() {
-        this.docktypeServiceLocal = new DocktypeServiceLocal();
+        this.msMoonServiceLocal = new MSMoonServiceLocal();
     }
 
     public welcomeMessage(req: Request, res: Response) {
         try {
-            this.docktypeServiceLocal.welcomeMessage()
+            this.msMoonServiceLocal.welcomeMessage()
                 .then(result => {
                     res.status(200).send(result);
                 })
@@ -30,7 +29,7 @@ export class DocktypeServiceAction {
 
     public async asyncWelcomeMessage(req: Request, res: Response) {
         try {
-            const result: String = await this.docktypeServiceLocal.asyncWelcomeMessage();
+            const result: String = await this.msMoonServiceLocal.asyncWelcomeMessage();
             res.status(200).send(result);
         } catch (error) {
             res.send(error);
@@ -39,7 +38,7 @@ export class DocktypeServiceAction {
 
     public async getAllMSMoon(req: Request, res: Response) {
         try {
-            const msmoons: MongooseDocument[] = await this.docktypeServiceLocal.getAllMSMoon();
+            const msmoons: MongooseDocument[] = await this.msMoonServiceLocal.getAllMSMoon();
             res.json(msmoons);
         } catch (error) {
             res.send(error);
@@ -48,7 +47,7 @@ export class DocktypeServiceAction {
 
     public async addNewMSMoon(req: Request, res: Response) {
         try {
-            const newMSMoon: MongooseDocument = await this.docktypeServiceLocal.addNewMSMoon(req.body);
+            const newMSMoon: MongooseDocument = await this.msMoonServiceLocal.addNewMSMoon(req.body);
             res.json(newMSMoon);
         } catch (error) {
             res.send(error);
@@ -59,7 +58,7 @@ export class DocktypeServiceAction {
 
         try {
             const msmoonID = req.params.id;
-            const detailMSMoon: MongooseDocument | null = await this.docktypeServiceLocal.detailMSMoon(msmoonID);
+            const detailMSMoon: MongooseDocument | null = await this.msMoonServiceLocal.detailMSMoon(msmoonID);
             if (detailMSMoon) {
                 res.json(detailMSMoon);
             } else {
@@ -73,7 +72,7 @@ export class DocktypeServiceAction {
     public async deleteMSMoon(req: Request, res: Response) {
         try {
             const msmoonID = req.params.id;
-            const deletedMSMoon: MongooseDocument | null = await this.docktypeServiceLocal.deleteMSMoon(msmoonID);
+            const deletedMSMoon: MongooseDocument | null = await this.msMoonServiceLocal.deleteMSMoon(msmoonID);
             if (deletedMSMoon) {
                 res.json(deletedMSMoon);
             } else {
@@ -90,12 +89,12 @@ export class DocktypeServiceAction {
         try {
             const msmoonID = req.params.id;
 
-            const deletedMSMoon: MongooseDocument | null = await this.docktypeServiceLocal.updateMSMoon({
-                _id: msmoonID,
+            const updatedMSMoon: IMSMoonOutput | null = await this.msMoonServiceLocal.updateMSMoon({
+                id: msmoonID,
                 ...req.body
             });
-            if (deletedMSMoon) {
-                res.json(deletedMSMoon);
+            if (updatedMSMoon) {
+                res.json(updatedMSMoon);
             } else {
                 res.json({ message: 'MSMoon not found :(' })
             }

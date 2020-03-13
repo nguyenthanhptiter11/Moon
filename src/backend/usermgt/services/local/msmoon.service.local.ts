@@ -1,10 +1,9 @@
 //src/services/msmoon.service.local.ts
 
-import { MongooseDocument } from 'mongoose';
-import { MSMoon, IMSMoon } from '../../models/msmoon.model';
-import { WELCOME_MESSAGE, WELCOME_MESSAGE_ERR } from '../../../../constants/docktypeApi.constants';
+import { MSMoon, IMSMoon, IMSMoonInput, IMSMoonOutput } from '../../models/msmoon.model';
+import { WELCOME_MESSAGE, WELCOME_MESSAGE_ERR } from '../../../../constants/msmoonapi.constants';
 
-export class DocktypeServiceLocal {
+export class MSMoonServiceLocal {
     public welcomeMessage() {
         return new Promise((resolve, reject) => setTimeout(() => {
             //resolve(WELCOME_MESSAGE)
@@ -75,15 +74,23 @@ export class DocktypeServiceLocal {
 
     //Updating a msmoon
 
-    public async updateMSMoon(msmoon: IMSMoon) {
+    public async updateMSMoon(msmoon: IMSMoonInput) {
 
         try {
 
-            const updatedMSMoon = await MSMoon.findByIdAndUpdate(
-                msmoon['_id'],
+            const updatedMSMoon: IMSMoon | null = await MSMoon.findByIdAndUpdate(
+                msmoon['id'],
                 msmoon
             );
-            return updatedMSMoon
+            if (updatedMSMoon) {
+                const r:IMSMoonOutput = {
+
+                    ... updatedMSMoon._doc
+                }
+                return r
+            } else {
+                return null
+            }
         } catch (err) {
 
             throw err

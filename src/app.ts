@@ -4,7 +4,7 @@ import express, { Application } from 'express';
 import { UserMgtController } from './backend/usermgt/api/main.usermgtcontroller';
 
 //importing our MONGO_URL constant
-import { MONGO_URL } from './constants/docktypeApi.constants';
+import { MONGO_URL } from './constants/msmoonapi.constants';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
