@@ -1,24 +1,24 @@
 //src/app.ts
 
 import express, { Application } from 'express';
-import { Controller } from './main.controller';
+import { UserMgtController } from './backend/usermgt/api/main.usermgtcontroller';
 
 //importing our MONGO_URL constant
-import { MONGO_URL } from './constants/docktypeApi.constants';
+import { MONGO_URL } from './constants/msmoonapi.constants';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
 class App {
     public app: Application;
-    public docktypeController: Controller;
+    public userMgtControllerRegister: UserMgtController;
 
     constructor() {
         this.app = express();
         this.setConfig();
         this.setMongoConfig();
 
-        this.docktypeController = new Controller(this.app);
+        this.userMgtControllerRegister = new UserMgtController(this.app);
     }
 
     private setConfig() {
