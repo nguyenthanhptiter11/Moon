@@ -17,3 +17,8 @@ npm i -D @types/body-parser @types/cors @types/express @types/mongoose @types/no
 sudo dnf install docker-compose
 
 docker-compose up
+
+# if test docker run --rm -it alpine ping -c4 google.com
+#docker: Error response from daemon: cgroups: cannot found cgroup mount destination: unknown 
+sudo mkdir /sys/fs/cgroup/systemd
+sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
